@@ -1,12 +1,12 @@
 ## Circuit Breaker
 
 
-###**Circuit Breaker** 
+### **Circuit Breaker** 
 * 누전 차단기, <u>외부 API 통신의 장애 전파를 막기 위해 장애를 탐지하면 외부와의 통신을 차단하는 역할</u>
 * MSA에서는 서로의 모듈이 의존함에 따라 **한 모듈이 장애가 나면 다른 모듈에도 장애로 이어지는 것을 막기 위해 MSA 회복성 패턴 중 하나인 CurcuitBraker**를 사용한다
 * 장점 : 서킷브레이커가 실행(오픈)되면 Fail Fast함으로써 외부 서비스가 장애가 나더라도 빠르게 에러를 응답 받을 수 있다.
 
-###**Circuit Breaker**의 구성
+### **Circuit Breaker**의 구성
 1. 외부 API 통신 시도
 2. 외부 통신이 실패함으로써 서킷브레이커 Open
 3. Open과 동시에 외부 서버에 요청을 날리지 않고, Fail Fast로 빠른 응답 리턴
@@ -33,7 +33,7 @@
 </table>
 => Resilience4j로 진행
 
-##### 예제
+### 예제
 1. 동물 사진 요청 시 각 동물 사진을 저장 서버로부터 가져와 응답해준다.
   ![img_1.png](img_1.png)
    * 요청 처리 서버에서 circuit breaker를 사용하며, 때문에 요청 중 예외가 발생하거나 circuit breaker가 OPEN이 되었을 때 응답을 내릴 수 있는 기본 이미지가 준비되어 있다.
@@ -43,7 +43,7 @@
 3. 2와 같은 경우에 circuit breaker를 통해 고양이 사진 저장 서버로 요청을 차단하고 미리 지정해둔 fall back 응답을 사용하면, 사용자에게 장애 상황임을 노출하지 않을 수 있고, 요청처리 서버의 응답지연도 방지할 수 있다.
   ![img_4.png](img_4.png)
 
-##### Circuit breaker VS retry 
+### Circuit breaker VS retry 
 * circuit breaker: 요청들의 추이를 지켜보다가 지속적으로 실패하는 경우, 잠시 <u>요청을 차단</u>해서 장애를 전파하지 않도록 한다.
   * 일시적인 장애가 아닌 경우, circuit breaker 를 통해 장애를 전파하지 않도록 차단하는 것이 좋다.
 * retry: 하나의 요청에 대해, 요청이 실패했을 경우 해당 요청을 다시 시도한다. 계속 실패할 경우 다른 응답을 반환한다.
