@@ -1,0 +1,15 @@
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowSize: 10 # 서킷 브레이커가 닫힌 상태에서 기록할 sliding window 크기 설정
+        failureRateThreshold: 50 # 실패 비율 임계치를 백분율로 설정
+        waitDurationInOpenState: 10s # 서킷브레이커가 Open 된 뒤 waitDurationInOpenState 시간만큼 지난 후 Half-Open 상태도 전환
+        # 10번 요청해서 실패율이 50%가 넘으면 서킷 브레이커가 Open됨. Open 10초 후에 다시 Half-Open 상태로 전환
+
+    instances:
+      hji: # 'hji'라는 인스턴스 이름 지정
+        baseConfig: default
+
+server:
+  port: 8081
